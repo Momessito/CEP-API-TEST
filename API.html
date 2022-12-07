@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>api</title>
+</head>
+<style>
+    body{
+        margin: 0;
+        transition: 0.2 all;
+    }
+    .menu p{
+        color: #fff8dc;
+        font-size: larger;
+        font-weight: 400;
+        font-family: sans-serif;
+    }
+    #box input{
+
+        border: 2px solid black;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        height: 40px;
+    }
+    #box button{
+        border: 2px solid black;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        background-color: white;
+        height: 46px;
+    }
+    #box h1{
+        width: 100%;
+        padding: 20px;
+    }
+    .menu{
+        width: 100%;
+        background: hsla(339, 100%, 55%, 1);
+
+background: linear-gradient(180deg, hsla(339, 100%, 55%, 1) 0%, hsla(197, 100%, 64%, 1) 100%);
+
+background: -moz-linear-gradient(180deg, hsla(339, 100%, 55%, 1) 0%, hsla(197, 100%, 64%, 1) 100%);
+
+background: -webkit-linear-gradient(180deg, hsla(339, 100%, 55%, 1) 0%, hsla(197, 100%, 64%, 1) 100%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#FF1B6B", endColorstr="#45CAFF", GradientType=1 );
+    }
+    #box{
+        max-width: 60%;
+        height: auto;
+        background-color: rgba(137, 43, 226, 0.247);
+        border: 2px solid black;
+        text-align: center;
+        border-radius: 20px;
+        padding: 10px;
+        margin-left: 50%;
+        transform: translate(-50%);
+        margin-top: 50px;
+        font-family: sans-serif;
+    }
+    section{
+        width: 100%;
+    }
+</style>
+<body>
+    <div class="menu" style="display:flex;justify-content: space-between;align-items: center;">
+    <div class="menuLeft" style="display: flex;align-content: center;flex-direction: row;justify-content: center;align-items: center;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff8dc" class="bi bi-alipay" style="padding:10px;" viewBox="0 0 16 16">
+            <path d="M2.541 0H13.5a2.551 2.551 0 0 1 2.54 2.563v8.297c-.006 0-.531-.046-2.978-.813-.412-.14-.916-.327-1.479-.536-.303-.113-.624-.232-.957-.353a12.98 12.98 0 0 0 1.325-3.373H8.822V4.649h3.831v-.634h-3.83V2.121H7.26c-.274 0-.274.273-.274.273v1.621H3.11v.634h3.875v1.136h-3.2v.634H9.99c-.227.789-.532 1.53-.894 2.202-2.013-.67-4.161-1.212-5.51-.878-.864.214-1.42.597-1.746.998-1.499 1.84-.424 4.633 2.741 4.633 1.872 0 3.675-1.053 5.072-2.787 2.08 1.008 6.37 2.738 6.387 2.745v.105A2.551 2.551 0 0 1 13.5 16H2.541A2.552 2.552 0 0 1 0 13.437V2.563A2.552 2.552 0 0 1 2.541 0Z"/>
+            <path d="M2.309 9.27c-1.22 1.073-.49 3.034 1.978 3.034 1.434 0 2.868-.925 3.994-2.406-1.602-.789-2.959-1.353-4.425-1.207-.397.04-1.14.217-1.547.58Z"/>
+    </svg>
+    <p>CEPs</p>
+    </div>
+    <div class="menuRight" style="display: flex; align-items: center;padding-left: 20px;">
+        <p style="margin:10px;">Cep</p>
+        <p style="margin:10px;">localidade</p>
+    </div></div>
+
+    <div id="box" style="display:flex;flex-direction: row;flex-wrap: wrap;align-content: center;justify-content: center;">
+    <h1>DIGITE SEU CEP</h1>
+    <input id="input" type="text" placeholder="Digite seu CEP">
+    <button onclick="cep()">OK</button>
+    <section></section>
+    <p id="text"></p>
+    </div>
+
+
+
+
+</body>
+
+<script>
+    /*
+    const carro = {
+        marca:"Fiat",
+        modelo:"Uno",
+        ano:2022
+    }
+    
+    let texto = JSON.stringify(carro);
+    
+    let obj = JSON.parse(texto);
+    
+    document.getElementById('text').innerHTML = obj.modelo;
+    */
+
+function cep(){
+
+        let cep = document.getElementById('input').value;
+
+        const ajax = new XMLHttpRequest();
+        ajax.open('GET', 'https://viacep.com.br/ws/' + cep + '/json/');
+        ajax.send();
+        
+
+        ajax.onload = function () {
+            let obj = JSON.parse(this.responseText);
+            document.getElementById("text").innerHTML = "Sua " + obj.logradouro +"<br>Seu Bairro "+obj.bairro+"<br>Seu Estado "+obj.localidade;
+        }
+    }
+
+
+</script>
+
+</html>
